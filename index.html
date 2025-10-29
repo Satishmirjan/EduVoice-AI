@@ -14,29 +14,27 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .presentation {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            min-height: 100vh;
             position: relative;
         }
 
         .slide {
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
             display: none;
-            padding: 50px 80px;
+            padding: 50px 80px 120px 80px;
             color: white;
-            position: absolute;
-            top: 0;
-            left: 0;
+            overflow-y: auto;
         }
 
         .slide.active {
-            display: flex;
-            flex-direction: column;
+            display: block;
             animation: fadeIn 0.6s;
         }
 
@@ -70,10 +68,7 @@
         }
 
         .content-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            margin-top: 20px;
         }
 
         .two-column {
@@ -130,6 +125,7 @@
             justify-content: space-around;
             margin: 40px 0;
             font-size: 1.2em;
+            flex-wrap: wrap;
         }
 
         .flow-box {
@@ -167,6 +163,9 @@
             display: flex;
             gap: 20px;
             z-index: 1000;
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
         }
 
         button {
@@ -196,6 +195,7 @@
             background: rgba(0,0,0,0.3);
             padding: 10px 20px;
             border-radius: 20px;
+            z-index: 1000;
         }
 
         ul {
@@ -292,13 +292,32 @@
             border: 2px solid #22c55e;
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1em;
         }
 
-        .animate-in {
-            animation: slideUp 0.8s ease-out;
+        th, td {
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        thead tr {
+            background: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px 120px 20px;
+            }
+            .two-column, .three-column, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 2em; }
+            h3 { font-size: 1.5em; }
+            p, li { font-size: 1.1em; }
         }
     </style>
 </head>
@@ -307,11 +326,11 @@
         <!-- Slide 1: Title -->
         <div class="slide active">
             <div class="logo">💡 LearnAI</div>
-            <div class="content-area" style="text-align: center; justify-content: center;">
+            <div class="content-area" style="text-align: center; padding-top: 200px;">
                 <h1 style="font-size: 4.5em; margin-bottom: 20px;">LearnAI</h1>
                 <p class="subtitle">AI-Powered Accessible Learning Platform</p>
                 <div style="font-size: 5em; margin: 40px 0;">📚🤖🎧</div>
-           </div>
+            </div>
         </div>
 
         <!-- Slide 2: Problem Statement -->
@@ -330,392 +349,7 @@
                         </ul>
                     </div>
                     <div class="card solution">
-                        <h3 style="color: #86efac;">Solution</h3>
-                        <p>Prioritized core features first, modular architecture for later additions</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 13: Future Enhancements -->
-        <div class="slide">
-            <h2>🚀 Future Enhancements</h2>
-            <div class="content-area">
-                <div class="two-column">
-                    <div class="card">
-                        <h3 style="color: #fbbf24;">✅ Completed</h3>
-                        <ul>
-                            <li>PDF text extraction</li>
-                            <li>AI summarization (BART)</li>
-                            <li>Text-to-Speech audio</li>
-                            <li>Voice navigation</li>
-                            <li>Responsive UI/UX</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3 style="color: #a78bfa;">🔄 In Progress</h3>
-                        <ul>
-                            <li>Flashcard integration</li>
-                            <li>Quiz generation</li>
-                            <li>User dashboard</li>
-                            <li>Progress tracking</li>
-                            <li>Mobile app version</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card" style="margin-top: 30px;">
-                    <h3 style="color: #60a5fa;">🔮 Planned Features</h3>
-                    <div class="tech-stack">
-                        <span class="tech-badge">📹 Video Transcription</span>
-                        <span class="tech-badge">🌐 Multi-language Support</span>
-                        <span class="tech-badge">📊 Analytics Dashboard</span>
-                        <span class="tech-badge">🤝 Collaborative Learning</span>
-                        <span class="tech-badge">📱 Mobile Apps (iOS/Android)</span>
-                        <span class="tech-badge">🔗 Integration with LMS</span>
-                        <span class="tech-badge">🎯 Personalized Learning Paths</span>
-                        <span class="tech-badge">🏆 Gamification</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 14: Code Example -->
-        <div class="slide">
-            <h2>👨‍💻 Code Highlights</h2>
-            <div class="content-area">
-                <h3>Backend - PDF Summarization (Python)</h3>
-                <div class="code-block" style="font-size: 0.95em;">
-<strong style="color: #fbbf24;">def</strong> summarize_large_text(text):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #86efac;"># Split into manageable chunks</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;chunks = split_into_chunks(text, max_words=700)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;summaries = []<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: #fbbf24;">for</strong> chunk <strong style="color: #fbbf24;">in</strong> chunks:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #86efac;"># Use BART model for summarization</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summary = summarizer(chunk, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_length=200, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min_length=60)[0]['summary_text']<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries.append(summary)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: #fbbf24;">return</strong> "\n\n".join(summaries)
-                </div>
-                <h3 style="margin-top: 30px;">Frontend - Voice Commands (JavaScript)</h3>
-                <div class="code-block" style="font-size: 0.95em;">
-<strong style="color: #fbbf24;">const</strong> commands = [<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;command: ['Go to upload', 'Open upload page'],<br>
-&nbsp;&nbsp;&nbsp;&nbsp;callback: () => navigate('/upload')<br>
-&nbsp;&nbsp;},<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;command: ['Go to dashboard'],<br>
-&nbsp;&nbsp;&nbsp;&nbsp;callback: () => navigate('/dashboard')<br>
-&nbsp;&nbsp;}<br>
-];<br>
-<br>
-<span style="color: #86efac;">// Uses Web Speech API for recognition</span><br>
-useSpeechRecognition({ commands });
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 15: Use Cases -->
-        <div class="slide">
-            <h2>💼 Real-World Use Cases</h2>
-            <div class="content-area">
-                <div class="three-column">
-                    <div class="card">
-                        <div class="icon">🎓</div>
-                        <h3>Students</h3>
-                        <ul>
-                            <li>Quick exam preparation</li>
-                            <li>Research paper summaries</li>
-                            <li>Textbook chapter reviews</li>
-                            <li>Lecture note processing</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <div class="icon">👨‍🏫</div>
-                        <h3>Educators</h3>
-                        <ul>
-                            <li>Create study materials</li>
-                            <li>Generate quiz questions</li>
-                            <li>Accessibility compliance</li>
-                            <li>Flipped classroom content</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <div class="icon">🏢</div>
-                        <h3>Professionals</h3>
-                        <ul>
-                            <li>Report summaries</li>
-                            <li>Document analysis</li>
-                            <li>Training materials</li>
-                            <li>Policy document reviews</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="demo-screen" style="margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px;">Example Scenario</h3>
-                    <p style="font-size: 1.2em; line-height: 1.8;">
-                        A visually impaired student needs to study a 100-page neuroscience textbook. 
-                        Instead of using screen readers for hours, they upload the PDF to LearnAI, 
-                        get a 5-minute audio summary, and use voice commands to navigate flashcards. 
-                        <strong style="color: #fbbf24;">Study time reduced from 8 hours to 30 minutes!</strong>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 16: Comparison with Existing Solutions -->
-        <div class="slide">
-            <h2>⚖️ Competitive Advantage</h2>
-            <div class="content-area">
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: 1.1em;">
-                        <thead>
-                            <tr style="background: rgba(255,255,255,0.2);">
-                                <th style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">Feature</th>
-                                <th style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">Traditional Tools</th>
-                                <th style="padding: 15px; border: 2px solid rgba(255,255,255,0.3); background: rgba(34, 197, 94, 0.3);">LearnAI</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);"><strong>Summarization</strong></td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">Manual/Basic</td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">✅ AI-Powered (BART)</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);"><strong>Voice Control</strong></td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">❌ Not Available</td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">✅ Full Navigation</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);"><strong>TTS Quality</strong></td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">Robotic</td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">✅ Natural (ElevenLabs)</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);"><strong>Flashcards</strong></td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">Manual Creation</td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">✅ Auto-Generated</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);"><strong>Accessibility</strong></td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">Limited</td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">✅ Fully Accessible</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);"><strong>Cost</strong></td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">Subscription Required</td>
-                                <td style="padding: 15px; border: 2px solid rgba(255,255,255,0.3);">✅ Free (Open Source)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 17: Technical Learnings -->
-        <div class="slide">
-            <h2>📚 Key Technical Learnings</h2>
-            <div class="content-area">
-                <div class="two-column">
-                    <div class="card">
-                        <h3>AI/ML Insights</h3>
-                        <ul>
-                            <li>Transformer models require careful prompt engineering</li>
-                            <li>Chunking strategy crucial for large documents</li>
-                            <li>Model selection impacts speed vs accuracy</li>
-                            <li>Fine-tuning vs pre-trained trade-offs</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3>Full-Stack Development</h3>
-                        <ul>
-                            <li>React state management for file uploads</li>
-                            <li>Flask CORS configuration for API calls</li>
-                            <li>Audio streaming and buffering techniques</li>
-                            <li>Real-time progress indicators</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card" style="margin-top: 30px;">
-                    <h3>Performance Optimizations</h3>
-                    <div class="two-column">
-                        <div>
-                            <p><strong>❌ Initial Approach:</strong></p>
-                            <ul>
-                                <li>Processing entire PDF at once</li>
-                                <li>Result: Memory errors, timeouts</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p><strong>✅ Optimized Solution:</strong></p>
-                            <ul>
-                                <li>Chunk-based processing pipeline</li>
-                                <li>Result: Fast, reliable summarization</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 18: Social Impact -->
-        <div class="slide">
-            <h2>🌍 Social Impact & Inclusivity</h2>
-            <div class="content-area">
-                <div class="card" style="padding: 40px; text-align: center;">
-                    <h3 style="font-size: 2em; margin-bottom: 30px;">Building an Inclusive Future</h3>
-                    <p style="font-size: 1.4em; line-height: 1.8; margin-bottom: 30px;">
-                        LearnAI addresses the <strong style="color: #fbbf24;">digital divide</strong> by making educational 
-                        content accessible to <strong style="color: #fbbf24;">15% of the global population</strong> 
-                        living with disabilities.
-                    </p>
-                </div>
-                <div class="three-column" style="margin-top: 30px;">
-                    <div class="card">
-                        <div class="stat-number">285M</div>
-                        <p>Visually impaired people worldwide</p>
-                    </div>
-                    <div class="card">
-                        <div class="stat-number">466M</div>
-                        <p>People with hearing loss</p>
-                    </div>
-                    <div class="card">
-                        <div class="stat-number">1B+</div>
-                        <p>People with some form of disability</p>
-                    </div>
-                </div>
-                <div class="demo-screen" style="margin-top: 30px;">
-                    <p style="font-size: 1.3em;">
-                        <strong>UN Sustainable Development Goals:</strong> Quality Education (SDG 4) • 
-                        Reduced Inequalities (SDG 10) • Industry Innovation (SDG 9)
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 19: Demo Screenshots -->
-        <div class="slide">
-            <h2>📸 Application Screenshots</h2>
-            <div class="content-area">
-                <div class="two-column">
-                    <div class="card">
-                        <h3>Home Page</h3>
-                        <div style="background: rgba(0,0,0,0.3); padding: 80px 20px; border-radius: 10px; text-align: center;">
-                            <div style="font-size: 3em; margin-bottom: 20px;">📚</div>
-                            <p>Hero Section</p>
-                            <p style="margin-top: 10px; font-size: 0.9em;">Features Grid • How It Works • Footer</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Upload Page</h3>
-                        <div style="background: rgba(0,0,0,0.3); padding: 80px 20px; border-radius: 10px; text-align: center;">
-                            <div style="font-size: 3em; margin-bottom: 20px;">📤</div>
-                            <p>Drag & Drop Zone</p>
-                            <p style="margin-top: 10px; font-size: 0.9em;">Feature Toggles • Generate Button</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card" style="margin-top: 30px;">
-                    <h3>Summary Display</h3>
-                    <div style="background: rgba(0,0,0,0.3); padding: 60px 20px; border-radius: 10px; text-align: center;">
-                        <div style="font-size: 3em; margin-bottom: 20px;">📄🔊</div>
-                        <p>Scrollable Summary Text + Embedded Audio Player</p>
-                        <p style="margin-top: 10px; font-size: 0.9em;">Auto-play for Accessibility • Download Options</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 20: Team & Acknowledgments -->
-        <div class="slide">
-            <h2>👥 Acknowledgments</h2>
-           
-                <div class="two-column" style="margin-top: 30px;">
-                    <div class="card">
-                        <h3>Technologies Used</h3>
-                        <p>Hugging Face Transformers<br>ElevenLabs API<br>React & Flask<br>Web Speech API</p>
-                    </div>
-                    <div class="card">
-                        <h3>Open Source</h3>
-                        <p>GitHub Repository<br>MIT License<br>Community Contributions Welcome</p>
-                    </div>
-                </div>
-                <div class="demo-screen" style="margin-top: 30px;">
-                    <p style="font-size: 1.3em;">
-                        Special thanks to <strong>Anthropic, OpenAI, Hugging Face</strong> for democratizing AI technology
-                    </p>
-                </div>
-            </div>
-        </div>
-
-      
-    <div class="controls">
-        <button onclick="previousSlide()">← Previous</button>
-        <button onclick="nextSlide()">Next →</button>
-    </div>
-
-    <div class="slide-number">
-        <span id="current-slide">1</span> / <span id="total-slides">22</span>
-    </div>
-
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-        
-        document.getElementById('total-slides').textContent = totalSlides;
-
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + totalSlides) % totalSlides;
-            slides[currentSlide].classList.add('active');
-            document.getElementById('current-slide').textContent = currentSlide + 1;
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        function previousSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextSlide();
-            }
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                previousSlide();
-            }
-        });
-
-        // Touch gestures for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50) nextSlide();
-            if (touchEndX > touchStartX + 50) previousSlide();
-        }
-    </script>
-</body>
-</html><h3 style="color: #86efac;">Our Solution</h3>
+                        <h3 style="color: #86efac;">Our Solution</h3>
                         <ul style="font-size: 1.2em;">
                             <li>AI-powered instant summaries</li>
                             <li>Text-to-Speech for accessibility</li>
@@ -790,7 +424,7 @@ useSpeechRecognition({ commands });
                         <p style="font-size: 0.9em; margin-top: 10px;">BART<br>ElevenLabs<br>T5 & DistilBERT</p>
                     </div>
                 </div>
-                <div class="two-column" style="margin-top: 50px;">
+                <div class="two-column">
                     <div class="card">
                         <h3>Client Side</h3>
                         <ul>
@@ -813,7 +447,7 @@ useSpeechRecognition({ commands });
             </div>
         </div>
 
-        <!-- Slide 5: How It Works - Step by Step -->
+        <!-- Slide 5: How It Works -->
         <div class="slide">
             <h2>🔄 How It Works - Step by Step</h2>
             <div class="content-area">
@@ -842,7 +476,7 @@ useSpeechRecognition({ commands });
             </div>
         </div>
 
-        <!-- Slide 6: AI Models Used -->
+        <!-- Slide 6: AI Models -->
         <div class="slide">
             <h2>🤖 AI Models & Technologies</h2>
             <div class="content-area">
@@ -866,7 +500,7 @@ useSpeechRecognition({ commands });
                         <p style="margin-top: 15px; font-size: 1em;">Lightweight BERT for fast question-answering from context</p>
                     </div>
                 </div>
-                <div class="two-column" style="margin-top: 30px;">
+                <div class="two-column">
                     <div class="card">
                         <h3>ElevenLabs TTS</h3>
                         <p><strong>Purpose:</strong> High-quality voice synthesis</p>
@@ -881,34 +515,7 @@ useSpeechRecognition({ commands });
             </div>
         </div>
 
-        <!-- Slide 7: Technical Implementation -->
-        <div class="slide">
-            <h2>💻 Technical Implementation</h2>
-            <div class="content-area">
-                <h3>Backend Flow (Flask)</h3>
-                <div class="code-block">
-1. Receive PDF file → Save temporarily<br>
-2. Extract text using PyMuPDF<br>
-3. Split into 700-word chunks (token limit)<br>
-4. Pass each chunk to BART summarizer<br>
-5. Combine all summaries<br>
-6. Generate audio via ElevenLabs API<br>
-7. Return JSON: {summary: "...", audio_url: "/audio/file.mp3"}
-                </div>
-                <div class="two-column" style="margin-top: 30px;">
-                    <div class="card">
-                        <h3>Why Chunking?</h3>
-                        <p>AI models have token limits (~1024 tokens). Large PDFs must be split to avoid errors.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Audio Stitching</h3>
-                        <p>ElevenLabs API limited to 200 words. We generate multiple chunks and merge them using pydub.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Tech Stack -->
+        <!-- Slide 7: Tech Stack -->
         <div class="slide">
             <h2>🛠️ Technology Stack</h2>
             <div class="content-area">
@@ -922,7 +529,6 @@ useSpeechRecognition({ commands });
                             <span class="tech-badge">Framer Motion</span>
                             <span class="tech-badge">Tailwind CSS</span>
                             <span class="tech-badge">Material-UI</span>
-                            <span class="tech-badge">React Dropzone</span>
                         </div>
                     </div>
                     <div class="card">
@@ -933,11 +539,10 @@ useSpeechRecognition({ commands });
                             <span class="tech-badge">PyMuPDF</span>
                             <span class="tech-badge">Transformers</span>
                             <span class="tech-badge">Flask-CORS</span>
-                            <span class="tech-badge">pydub</span>
                         </div>
                     </div>
                 </div>
-                <div class="card" style="margin-top: 30px;">
+                <div class="card">
                     <h3>AI & APIs</h3>
                     <div class="tech-stack">
                         <span class="tech-badge">Hugging Face 🤗</span>
@@ -946,86 +551,12 @@ useSpeechRecognition({ commands });
                         <span class="tech-badge">DistilBERT</span>
                         <span class="tech-badge">ElevenLabs TTS</span>
                         <span class="tech-badge">Web Speech API</span>
-                        <span class="tech-badge">Tavily Search</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 9: Accessibility Features -->
-        <div class="slide">
-            <h2>♿ Accessibility Features</h2>
-            <div class="content-area">
-                <div class="three-column">
-                    <div class="card">
-                        <div class="icon">👁️</div>
-                        <h3>Visually Impaired</h3>
-                        <ul>
-                            <li>Text-to-Speech narration</li>
-                            <li>Voice navigation</li>
-                            <li>Auto-play audio summaries</li>
-                            <li>High contrast UI</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <div class="icon">👂</div>
-                        <h3>Hearing Impaired</h3>
-                        <ul>
-                            <li>Full text transcripts</li>
-                            <li>Visual feedback</li>
-                            <li>Written summaries</li>
-                            <li>No audio-only content</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <div class="icon">🧠</div>
-                        <h3>Cognitive Support</h3>
-                        <ul>
-                            <li>Simplified summaries</li>
-                            <li>Flashcards for retention</li>
-                            <li>Interactive quizzes</li>
-                            <li>Progress tracking</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="demo-screen" style="margin-top: 30px;">
-                    <p style="font-size: 1.3em; text-align: center;">
-                        <strong>Voice Commands:</strong> "Go to Upload" • "Go to Dashboard" • "Go Home"
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 10: Demo Workflow -->
-        <div class="slide">
-            <h2>🎬 Demo Workflow</h2>
-            <div class="content-area">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <strong style="color: #fbbf24; font-size: 1.4em;">1. User uploads "Machine_Learning.pdf"</strong>
-                        <p style="margin-top: 10px;">Drag-and-drop interface with visual feedback</p>
-                    </div>
-                    <div class="timeline-item">
-                        <strong style="color: #fbbf24; font-size: 1.4em;">2. Selects options: ✓ Summary ✓ Audio</strong>
-                        <p style="margin-top: 10px;">Toggle buttons for flashcards, quiz, audio generation</p>
-                    </div>
-                    <div class="timeline-item">
-                        <strong style="color: #fbbf24; font-size: 1.4em;">3. Backend processes (30 seconds)</strong>
-                        <p style="margin-top: 10px;">Loading indicator shows "Generating summary..."</p>
-                    </div>
-                    <div class="timeline-item">
-                        <strong style="color: #fbbf24; font-size: 1.4em;">4. Summary page displays results</strong>
-                        <p style="margin-top: 10px;">Scrollable text + embedded audio player</p>
-                    </div>
-                    <div class="timeline-item">
-                        <strong style="color: #fbbf24; font-size: 1.4em;">5. User says "Go to Dashboard"</strong>
-                        <p style="margin-top: 10px;">Voice assistant navigates automatically</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 11: Impact & Statistics -->
+        <!-- Slide 8: Impact -->
         <div class="slide">
             <h2>📊 Project Impact</h2>
             <div class="content-area">
@@ -1047,7 +578,7 @@ useSpeechRecognition({ commands });
                         <p>Accessible</p>
                     </div>
                 </div>
-                <div class="two-column" style="margin-top: 40px;">
+                <div class="two-column">
                     <div class="card">
                         <h3>Time Savings</h3>
                         <p style="font-size: 1.3em; margin: 20px 0;">📖 Reading 50-page PDF: <strong>2-3 hours</strong></p>
@@ -1062,49 +593,112 @@ useSpeechRecognition({ commands });
                             <li>ROUGE-2: 21.28 score</li>
                             <li>ROUGE-L: 40.90 score</li>
                         </ul>
-                        <p style="margin-top: 15px; font-size: 1.1em;">Industry-leading performance</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 12: Challenges Faced -->
+        <!-- Slide 9: Future Enhancements -->
         <div class="slide">
-            <h2>⚠️ Challenges & Solutions</h2>
+            <h2>🚀 Future Enhancements</h2>
             <div class="content-area">
-                <div class="problem-solution">
-                    <div class="card problem">
-                        <h3 style="color: #fca5a5;">Challenge</h3>
-                        <p><strong>Token Limits:</strong> AI models can't process entire PDFs at once</p>
+                <div class="two-column">
+                    <div class="card">
+                        <h3 style="color: #4ade80;">✅ Completed</h3>
+                        <ul>
+                            <li>PDF text extraction</li>
+                            <li>AI summarization (BART)</li>
+                            <li>Text-to-Speech audio</li>
+                            <li>Voice navigation</li>
+                            <li>Responsive UI/UX</li>
+                        </ul>
                     </div>
-                    <div class="card solution">
-                        <h3 style="color: #86efac;">Solution</h3>
-                        <p>Implemented chunking algorithm - split into 700-word segments</p>
-                    </div>
-                </div>
-                <div class="problem-solution">
-                    <div class="card problem">
-                        <h3 style="color: #fca5a5;">Challenge</h3>
-                        <p><strong>Audio Quality:</strong> Text-to-Speech sounded robotic</p>
-                    </div>
-                    <div class="card solution">
-                        <h3 style="color: #86efac;">Solution</h3>
-                        <p>Integrated ElevenLabs API for natural-sounding voices</p>
-                    </div>
-                </div>
-                <div class="problem-solution">
-                    <div class="card problem">
-                        <h3 style="color: #fca5a5;">Challenge</h3>
-                        <p><strong>Voice Recognition:</strong> Browser compatibility issues</p>
-                    </div>
-                    <div class="card solution">
-                        <h3 style="color: #86efac;">Solution</h3>
-                        <p>Used Web Speech API with fallback for unsupported browsers</p>
+                    <div class="card">
+                        <h3 style="color: #a78bfa;">🔮 Planned Features</h3>
+                        <ul>
+                            <li>Flashcard integration</li>
+                            <li>Quiz generation</li>
+                            <li>User dashboard</li>
+                            <li>Mobile app version</li>
+                            <li>Multi-language support</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="problem-solution">
-                    <div class="card problem">
-                        <h3 style="color: #fca5a5;">Challenge</h3>
-                        <p><strong>Time Constraint:</strong> Only 24 hours to build</p>
-                    </div>
-                    <div class="card solution">
+            </div>
+        </div>
+
+        <!-- Slide 10: Thank You -->
+        <div class="slide">
+            <div class="content-area" style="text-align: center; padding-top: 200px;">
+                <h1 style="font-size: 4em;">Thank You! 🙏</h1>
+                <p class="subtitle" style="margin-top: 30px;">Questions & Discussion</p>
+                <div style="font-size: 4em; margin: 40px 0;">💡📚🎓</div>
+                <div class="demo-screen" style="margin-top: 50px;">
+                    <p style="font-size: 1.3em;">
+                        <strong>GitHub:</strong> github.com/learnai<br>
+                        <strong>Demo:</strong> learnai-demo.com<br>
+                        <strong>Contact:</strong> team@learnai.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="previousSlide()">← Previous</button>
+        <button onclick="nextSlide()">Next →</button>
+    </div>
+
+    <div class="slide-number">
+        <span id="current-slide">1</span> / <span id="total-slides">10</span>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            window.scrollTo(0, 0);
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) previousSlide();
+        });
+    </script>
+</body>
+</html>
